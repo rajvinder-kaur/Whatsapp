@@ -1,6 +1,89 @@
 .chat{
     display: flex;
-    flex-direction: column;
+    flex-direction: Column;
     flex: 0.65;
     
+}
+.chatHeader{
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+.headerInfo{
+    padding-left: 10px;
+}
+.headerInfo>h3{
+    font-weight: 400;
+}
+.headerInfo>p{
+    color: rgb(148, 147, 147);
+    font-weight: 100;
+    font-size: small;
+}
+.headerRight{
+    margin-right: 0%;
+    margin-left: auto;
+}
+.chatBody{
+    flex: 1;
+    padding: 30px;
+    overflow-y: scroll;
+    background-image: url("https://i.pinimg.com/originals/ab/ab/60/abab60f06ab52fa7846593e6ae0c9a0b.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.msg{
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: rgb(247, 244, 244);
+    margin-bottom: 20px;
+}
+.chat_timestamp{
+    margin-left: 10px;
+    font-size: xx-small;
+}
+.Chat_name{
+    position: absolute;
+    top: -15px;
+    font-weight: 800;
+    font-size: xx-small;
+}
+.recieved{
+    position: relative;
+    font-size: 16px;
+    margin-right: 0%;
+    margin-left: auto;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: rgb(209, 236, 207);
+    margin-bottom: 20px;
+}
+.recieved> .Chat_name{
+display: none;
+}
+.InputBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    padding: 0px 12px;
+    border-top: 1px solid lightgray;
+}
+.InputBox>form{
+    flex: 1;
+    display: flex;
+}
+.InputBox>form>input{
+    flex: 1;
+    border-radius: 30px;
+    padding: 10px;
+}
+.InputBox>form>button{
+    display: none;
 }

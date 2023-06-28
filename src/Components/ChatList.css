@@ -1,0 +1,27 @@
+.Chatbar{
+    display: flex;
+    padding: 20px;
+    cursor: pointer;
+    flex: 1;
+    align-items: center;
+    border-bottom: 1px solid rgb(238, 237, 237);
+}
+.Chatbar:hover{
+    background-color: rgb(239, 241, 243);
+}
+.info{
+        margin-left: 15px;
+}
+.info>p{
+    color: rgb(148, 147, 147);
+    font-weight: 100;
+    font-size: small;
+}
+.info>h3{
+    color: rgb(61, 61, 61);
+    font-weight: 400;
+}
+.chatbarContainer{
+    overflow-y: scroll;
+    height:100%;
+}
