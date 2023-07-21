@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Chat.css';
 import { Avatar, IconButton } from '@mui/material';
 import { AttachFile, MoreVert, SearchOutlined } from '@mui/icons-material';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined';
-function Chat() {
+import instance from '../../axios';
+function Chat({msg}) {
+  const [message, set] = useState("");
+  const send=(e)=>{
+    e.preventDefault();
+    instance.post('/messages/new',{
+      message: message,
+      name:"user",
+      timestamp : new Date().toLocaleString(),
+      recieved : false
+    }).then(()=>{
+      set("");
+    })
+  } 
   return (
     <div className="chat">
       <div className="chatHeader">
@@ -25,27 +38,31 @@ function Chat() {
           </IconButton>
         </div>
       </div>
-      <div className="chatBody">
-          <p className='msg'>
-          <span className="Chat_name">Ace</span>
-          hey whatsup?
+      <div className="chatBody">{
+        msg.map((x) => (
+         <p className= {`msg ${ !x.recieved && 'msg recieved' }`} id={x.id}>
+          <span className="Chat_name">{x.name}</span>
+          {x.message}
           <span className="chat_timestamp">
-            {new Date().toUTCString()}
+            {x.timestamp}
           </span>
-          </p>
-          <p className='msg recieved'>
-          <span className="Chat_name">Ace</span>
+          </p> 
+        ))
+      }
+          
+          {/* <p className='msg recieved'>
+          <span className="Chat_name">x.</span>
           nothing much
           <span className="chat_timestamp">
             {new Date().toUTCString()}
           </span>
-          </p>
+          </p>    */}
       </div>
       <div className="InputBox">
         <IconButton><SentimentSatisfiedOutlinedIcon/></IconButton>
         <form action="">
-          <input type="text" name="" id="" placeholder='Type a Message' />
-          <button type='submit' >
+          <input type="text" value={message} onChange={(e)=>{set(e.target.value)}} name="" id="" placeholder='Type a Message' />
+          <button onClick={send} type='submit' >
             send
           </button>
         </form>

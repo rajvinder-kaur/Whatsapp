@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Sidebar from './Components/Sidebar'
+import  Sidebar from './Components/Sidebar';
 import Chat from './Components/Chat'
 import Pusher from 'pusher-js';
 import instance from '../axios';
+import axios from 'axios';
 
 function App() {
   const [msg, getmsg] = useState([]);
@@ -11,15 +12,19 @@ function App() {
   useEffect(() => {
     const fetch = async () => {
       try {
-          const response = await instance.get('/messages/sync');
-          console.log(response.data);
+          instance.get('/messages/sync').then((response)=>{
+            getmsg(response.data)
+          })
         }
-       catch (error) {
+        catch (error) {
         console.log("Error fetching data", error);
       }
+      
+      
     }
     fetch();
-  }, [fetch])
+    
+  }, [fetch]);
   useEffect(() => {
     var pusher = new Pusher('99184aadb6e95ee75def', {
       cluster: 'ap2'
@@ -27,20 +32,24 @@ function App() {
 
     var channel = pusher.subscribe('messages');
     channel.bind('inserted', function (data) {
-      alert(JSON.stringify(data));
+      getmsg([ ...msg , data ]);
     });
 
+    return()=>{
+      channel.unbind_all();
+      channel.unsubscribe();
+    }
 
-  },);
+  },[msg]);
 
-  
+  console.log(msg);
+
 
   return (
     <div className="app">
-
       <div className="app_body">
         <Sidebar />
-        <Chat />
+        <Chat msg={msg} />
       </div>
     </div>
   )
